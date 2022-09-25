@@ -73,6 +73,7 @@ export default {
             this.$message.success(res.message)
             // 将登陆得到的 token 保存到 vuex 中
             this.updateToken(res.token)
+            await this.$router.push('/')
           }
           console.log('res: ', res)
         } else {
