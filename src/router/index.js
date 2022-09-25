@@ -7,7 +7,14 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: () => import('@/views/Layout')
+    component: () => import('@/views/Layout'),
+    redirect: 'home', // 路由重定向
+    children: [
+      {
+        path: 'home',
+        component: () => import('@/views/Home')
+      },
+    ]
   },
   {
     path: '/reg',
@@ -16,7 +23,7 @@ const routes = [
   {
     path: '/login',
     component: () => import('@/views/Login')
-  }
+  },
 ]
 
 const router = new VueRouter({
