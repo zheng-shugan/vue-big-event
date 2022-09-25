@@ -1,6 +1,5 @@
 // 封装的接口请求地址
 import request from '@/utils/request'
-import store from '@/store'
 
 /**
  * 注册请求 API
@@ -47,9 +46,6 @@ export const getUserInfoAPI = () => {
  return request({
    url: '/my/userinfo',
    method: 'GET',
-   headers: {
-     Authorization: store.state.token
-   }
  })
 }
 
@@ -61,8 +57,5 @@ export const getUserInfoAPI = () => {
 export const getMenusListAPI = () => {
   return request({
     url: '/my/menus',
-    headers: {
-      Authorization: store.state.token
-    }
   })
 }
