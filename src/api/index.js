@@ -62,7 +62,14 @@ export const getMenusListAPI = () => {
 }
 
 /**
- *  */
+ * 更新用户信息
+ *
+ * @param id 用户 id
+ * @param  nickname 用户昵称
+ * @param username 用户名
+ * @param email 用户邮箱
+ * @param user_pic 用户头像
+ * */
 export const updateUserInfoAPI = ({ id, nickname, username, email, user_pic }) => {
   return request({
     url: '/my/userinfo',
@@ -73,6 +80,23 @@ export const updateUserInfoAPI = ({ id, nickname, username, email, user_pic }) =
       username,
       email,
       user_pic
+    }
+  })
+}
+
+/**
+ * 更新用户头像
+ *
+ * @param avatar 头像的 base64 字符串
+ *
+ * @return Promise 对象
+ * */
+export const updateUserAvatar = (avatar) => {
+  return request({
+    url: '/my/update/avatar',
+    method: 'PATCH',
+    data: {
+      avatar
     }
   })
 }
