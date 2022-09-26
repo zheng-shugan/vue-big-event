@@ -34,7 +34,7 @@
         </div>
         <!-- 侧边导航菜单栏 -->
         <el-menu
-          default-active='/home'
+          :default-active='$route.path'
           class='el-menu-vertical-demo'
           @open='handleOpen'
           @close='handleClose'

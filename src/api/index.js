@@ -43,10 +43,10 @@ export const loginAPI = ({ username, password }) => {
  * @return 一个 Promise 对象
  * */
 export const getUserInfoAPI = () => {
- return request({
-   url: '/my/userinfo',
-   method: 'GET',
- })
+  return request({
+    url: '/my/userinfo',
+    method: 'GET'
+  })
 }
 
 /**
@@ -57,5 +57,22 @@ export const getUserInfoAPI = () => {
 export const getMenusListAPI = () => {
   return request({
     url: '/my/menus',
+    method: 'GET'
+  })
+}
+
+/**
+ *  */
+export const updateUserInfoAPI = ({ id, nickname, username, email, user_pic }) => {
+  return request({
+    url: '/my/userinfo',
+    method: 'PUT',
+    data: {
+      id,
+      nickname,
+      username,
+      email,
+      user_pic
+    }
   })
 }
