@@ -25,7 +25,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type='primary' @click='submitFn'>提交修改</el-button>
-        <el-button>重置</el-button>
+        <el-button @click='resetFn'>重置</el-button>
       </el-form-item>
     </el-form>
   </el-card>
@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     // 提交修改 -> 点击事件
-     submitFn() {
+    submitFn() {
       this.$refs.userFormRef.validate((valid) => {
         if (valid) {
           this.userForm.id = this.$store.state.userInfo.id
@@ -75,6 +75,15 @@ export default {
           return false
         }
       })
+    },
+    resetFn() {
+      // 重置按钮 -> 点击事件
+
+      // this.userForm.email = ''
+      // this.userForm.nickname = ''
+
+      // el-form 提供的重置表单 API
+      this.$refs.userFormRef.resetFields()
     }
   }
 }
