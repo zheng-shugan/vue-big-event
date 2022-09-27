@@ -150,3 +150,39 @@ export const saveArtCateAPI = ({ cate_name, cate_alias }) => {
     }
   })
 }
+
+/**
+ * @param id 文章分类 id
+ * @param cate_name 分类名称
+ * @param cate_alias 分类别名
+ *
+ * @return 一个 Promise 对象
+ * */
+export const changeArtCateAPI = ({ id, cate_name, cate_alias }) => {
+  return request({
+    url: '/my/cate/info',
+    method: 'PUT',
+    data: {
+      id,
+      cate_name,
+      cate_alias
+    }
+  })
+}
+
+/**
+ * 删除文章分类
+ *
+ * @param id 要删除分类的 id
+ *
+ * @return 一个 Promise 对象
+ * */
+export const deleteArtCateAPI = (id) => {
+  return request({
+    url: '/my/cate/del',
+    method: 'DELETE',
+    params: {
+      id
+    }
+  })
+}

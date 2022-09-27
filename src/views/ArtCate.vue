@@ -4,7 +4,7 @@
     <el-card class='box-card'>
       <div slot='header' class='clearfix header-box'>
         <span>文章分类</span>
-        <el-button type='primary' size='mini' @click='dialogVisible = true'>添加分类</el-button>
+        <el-button type='primary' size='mini' @click='addArtCate'>添加分类</el-button>
       </div>
       <template>
         <el-table :data='tableData' stripe style='width: 100%'>
@@ -14,8 +14,11 @@
           <el-table-column prop='cate_alias' label='分类别名'></el-table-column>
 
           <el-table-column label='操作'>
-            <el-button type='primary'>修改</el-button>
-            <el-button type='danger'>删除</el-button>
+            <!-- scope 对象: { row: 行对象 }-->
+            <template v-slot='scope'>
+              <el-button type='primary' @click='changeArtCate(scope.row)'>修改</el-button>
+              <el-button type='danger' @click='removeActCate(scope.row.id)'>删除</el-button>
+            </template>
           </el-table-column>
         </el-table>
       </template>
@@ -23,7 +26,7 @@
 
     <!--  添加文章分类 -- 对话框 -->
     <el-dialog
-      title='添加文章分类'
+      :title="isEdit ? '修改文章分类' : '添加文章分类'"
       :visible.sync='dialogVisible'
       width='30%'
       @close='dialogCloseFn'
@@ -46,7 +49,7 @@
 </template>
 
 <script>
-import { saveArtCateAPI, getArtCateListAPI } from '@/api'
+import { saveArtCateAPI, getArtCateListAPI, deleteArtCateAPI, changeArtCateAPI } from '@/api'
 
 export default {
   name: 'ActCate',
@@ -70,13 +73,14 @@ export default {
         ]
       },
       editId: '', // 要修改的文章 ID
-      isEdit: false, // 保存编辑状态
+      isEdit: false // 保存编辑状态
     }
   },
   created() {
     this.getArtCateFn()
   },
   methods: {
+    // 获取文章分类
     async getArtCateFn() {
       const { data: res } = await getArtCateListAPI()
       if (res.code !== 0) { // 获取失败
@@ -85,25 +89,36 @@ export default {
         this.tableData = res.data
       }
     },
+    // 提交表单
     confirmFn() {
       // 表单的校验
       this.$refs.addForm.validate(async (valid) => {
         if (valid) {
           // 通过了校验
-          const { data: res } = await saveArtCateAPI(this.addForm)
-          if (res.code !== 0) {
-            return  this.$message.error(res.message)
+          if (this.isEdit) {  // 修改文章分类
+            const { data: res } = await changeArtCateAPI({ id: this.editId, ...this.addForm })
+
+            if (res.code !== 0) {
+              return this.$message.error(res.message)
+            } else {
+              this.$message.success(res.message)
+            }
           } else {
-            this.getArtCateFn()
-            this.$message.success(res.message)
+            // 新增文章分类
+            const { data: res } = await saveArtCateAPI(this.addForm)
+            if (res.code !== 0) {
+              return this.$message.error(res.message)
+            } else {
+              this.$message.success(res.message)
+            }
           }
-          console.log(res)
+          // 重新获取文章分类
+          this.getArtCateFn()
         } else {
           return false
         }
       })
       this.dialogVisible = false
-
     },
     // 对话窗口关闭时候的回调
     dialogCloseFn() {
@@ -111,6 +126,37 @@ export default {
       this.$refs.addForm.resetFields()
       // this.addForm.cate_alias = ''
       // this.addForm.cate_name = ''
+    },
+    // 修改分类
+    changeArtCate(row) {
+      this.editId = row.id
+      this.isEdit = true
+      this.dialogVisible = true
+      // 设置数据回显
+      this.$nextTick(() => {
+        // 先让对话框出现，让它绑定空对象，才能使用 resetFields 清空用初始空值
+        this.addForm.cate_name = row.cate_name
+        this.addForm.cate_alias = row.cate_alias
+      })
+
+    },
+    // 删除文章分类
+    async removeActCate(id) {
+      const { data: res } = await deleteArtCateAPI(id)
+      if (res.code !== 0) {
+        return this.$message.error('删除分类失败！')
+      } else {
+        this.$message.success('删除分类成功！')
+      }
+      // 重新获取文章分类
+      this.getArtCateFn()
+    },
+    // 点击事件 -> 添加文章
+    addArtCate() {
+      // this.$refs.addForm.resetFields()
+      this.isEdit = false
+      this.dialogVisible = true
+      this.editId = null
     }
   }
 }
