@@ -25,6 +25,10 @@ const routes = [
       {
         path: 'user-pwd',
         component: () => import('@/views/UserPwd')
+      },
+      {
+        path: 'art-cate',
+        component: () => import('@/views/ArtCate')
       }
     ]
   },

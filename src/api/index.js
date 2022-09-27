@@ -121,3 +121,32 @@ export const updatePasswordAPI = ({ old_pwd, new_pwd, re_pwd }) => {
     }
   })
 }
+
+/**
+ * 获取文章分类
+ *
+ * @return 一个 Promise 对象
+ * */
+export const getArtCateListAPI = () => {
+  return request({
+    url: '/my/cate/list',
+    method: 'GET'
+  })
+}
+
+/**
+ * 添加文章分类
+ *
+ * @param cate_name 类别名称
+ * @param cate_alias 类别别名
+ * */
+export const saveArtCateAPI = ({ cate_name, cate_alias }) => {
+  return request({
+    url: '/my/cate/add',
+    method: 'POST',
+    data: {
+      cate_name,
+      cate_alias
+    }
+  })
+}
