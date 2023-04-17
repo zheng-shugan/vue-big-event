@@ -6,9 +6,9 @@
         <span>文章分类</span>
         <el-button type='primary' size='mini' @click='addArtCate'>添加分类</el-button>
       </div>
+
       <template>
         <el-table :data='tableData' stripe style='width: 100%'>
-
           <el-table-column type='index' label='序号' width='180'></el-table-column>
           <el-table-column prop='cate_name' label='分类名称' width='180'></el-table-column>
           <el-table-column prop='cate_alias' label='分类别名'></el-table-column>

@@ -5,12 +5,7 @@
 </template>
 
 <script>
-
+// import ShulteTable from "@/components/ShulteTable.vue"
 export default {
-
 }
 </script>
-
-<style>
-
-</style>

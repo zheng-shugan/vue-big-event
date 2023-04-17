@@ -29,6 +29,10 @@ const routes = [
       {
         path: 'art-cate',
         component: () => import('@/views/ArtCate')
+      },
+      {
+        path: 'art-list',
+        component: () => import('@/views/ArtList')
       }
     ]
   },
@@ -39,7 +43,7 @@ const routes = [
   {
     path: '/login',
     component: () => import('@/views/Login')
-  },
+  }
 ]
 
 const router = new VueRouter({

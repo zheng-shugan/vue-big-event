@@ -186,3 +186,73 @@ export const deleteArtCateAPI = (id) => {
     }
   })
 }
+
+/**
+ *  发布文章
+ *  @param fd 表单数据对象
+ *  @return 一个 Promise 对象
+ *  */
+export const uploadArticleAPI = (fd) => {
+  return request({
+    url: '/my/article/add',
+    method: 'POST',
+    data: fd
+  })
+}
+
+/**
+ * 获取文章列表
+ *
+ * @param pagenum 当前页码
+ * @param pagesize 当前页需要的数据条数
+ * @param cate_id 文章分类 id
+ * @param state 文章状态
+ *
+ * @return 一个 Promise 对象
+ * */
+export const getArticleListAPI = ({ pagenum, pagesize, cate_id, state, }) => {
+  return request({
+    url: '/my/article/list',
+    method: 'GET',
+    params: {
+      pagenum,
+      pagesize,
+      cate_id,
+      state,
+    }
+  })
+}
+
+/**
+ * 根据 id 获取文章详情
+ *
+ * @param id 文章的 id
+ *
+ * @return 一个 Promise 对象
+ * */
+export const getArticleByIdAPI = (id) => {
+  return request({
+    url: '/my/article/info',
+    method: 'GET',
+    params: {
+      id
+    }
+  })
+}
+
+/**
+ * 根据 id 删除文章
+ *
+ * @param id 需要删除文章的 id
+ *
+ * @return 一个 Promise 对象
+ * */
+export const deleteArticleByIdAPI = (id) => {
+  return request({
+    url: '/my/article/info',
+    method: 'DELETE',
+    params: {
+      id
+    }
+  })
+}

@@ -15,6 +15,7 @@
         <el-submenu index='1'>
           <template slot='title'>
             <!-- 头像 -->
+            <img src='../assets/images/logo.png' alt='logo' class='avatar' />
             <span>个人中心</span>
           </template>
           <el-menu-item index='1-1'><i class='el-icon-s-operation'></i>基本资料</el-menu-item>
@@ -24,6 +25,7 @@
         <el-menu-item index='2' @click='loginOut'><i class='el-icon-switch-button'></i>退出</el-menu-item>
       </el-menu>
     </el-header>
+
     <el-container>
       <!-- 侧边栏用户信息区域 -->
       <el-aside width='200px'>
@@ -32,6 +34,7 @@
           <img src='../assets/images/logo.png' alt='' v-else />
           <span>欢迎 {{ nickname || username }}</span>
         </div>
+
         <!-- 侧边导航菜单栏 -->
         <el-menu
           :default-active='$route.path'
@@ -62,6 +65,7 @@
                   </template>
                 </el-menu-item>
             </el-submenu>
+
           </template>
         </el-menu>
       </el-aside>
@@ -122,6 +126,7 @@ export default {
     handleOpen(key, keyPath) {
       console.log(key, keyPath)
     },
+
     handleClose(key, keyPath) {
       console.log(key, keyPath)
     },
@@ -134,6 +139,7 @@ export default {
   },
   created() {
     this.getMenusListFn()
+    console.log(this.menus)
   }
 }
 </script>
